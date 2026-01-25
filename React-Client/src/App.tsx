@@ -1,23 +1,28 @@
 import { useEffect, useState } from "react";
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import {ListItemText, List, ListItem, Typography } from "@mui/material";
+import axios from "axios";
 
 function App() {
   const title = "Wolcome to Reactivities";
-  const [activities, setActivities] = useState([]);
+  const [dataactivities, setdataActivities] = useState<Activity[]>([]);
   useEffect(() => {
-    fetch('https://localhost:7028/api/activities')
-      .then(response => response.json())
-      .then(data => setActivities(data))
+    axios.get<Activity[]>('https://localhost:7028/api/activities')
+      .then(response => setdataActivities(response.data))
   }, [])
   return (
-    <div>
-          <h1 className="app" style={{color:'red'}}>{title}</h1>
-    <ul>
-      {activities.map((activity)=>(
-        <li key={activity.id}>{activity.title}</li>
+    <>
+   <Typography variant='h1'>{title}</Typography>
+    <List>
+      {dataactivities.map((activity)=>(
+        <ListItem key={activity.id}>
+          <ListItemText>{activity.title}</ListItemText></ListItem>
       ))}
-    </ul>
-    </div>
-
+    </List>
+    </>
   )
 }
 
