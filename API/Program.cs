@@ -1,3 +1,4 @@
+using Application.Activities.Queries;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -21,7 +22,7 @@ builder.Services.AddCors(options =>
             .AllowCredentials();
   });
 });
-
+builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<GetActivitiesListQuery.Handler>());
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -55,47 +56,3 @@ catch (System.Exception ex)
 }
 
 app.Run();
-
-// using Microsoft.EntityFrameworkCore;
-// using Persistence;
-
-// var builder = WebApplication.CreateBuilder(args);
-
-// // Add services to the container.
-
-// builder.Services.AddControllers();
-// builder.Services.AddDbContext<AppDbContext>(opt =>
-// {
-//   opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
-// });
-// builder.Services.AddCors();
-// var app = builder.Build();
-
-// // Configure the HTTP request pipeline.
-
-// // Configure the HTTP request pipeline.
-// // Add this line to handle routing first
-// app.UseRouting();
-
-// // Then add CORS - This is the key change!
-// app.UseCors(x => x.AllowAnyHeader()
-//     .AllowAnyMethod()
-//     .AllowCredentials()
-//     .WithOrigins("http://localhost:3000", "https://localhost:3000"));
-// app.MapControllers();
-
-// using var scope = app.Services.CreateScope();
-// var services = scope.ServiceProvider;
-// try
-// {
-//   var context = services.GetRequiredService<AppDbContext>();
-//   await context.Database.MigrateAsync();
-//   await DbInitializer.SeedData(context);
-// }
-// catch (System.Exception ex)
-// {
-//   var logger = services.GetRequiredService<ILogger<Program>>();
-//   logger.LogError(ex, "An Error Occured During Migration.");
-// }
-
-// app.Run();
