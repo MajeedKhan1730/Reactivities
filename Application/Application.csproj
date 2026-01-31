@@ -12,6 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="MediatR" Version="12.4.1" />
   </ItemGroup>
 
@@ -19,6 +21,7 @@
     <Folder Include="Activities\" />
     <Folder Include="Activities\Commands\" />
     <Folder Include="Activities\Queries\" />
+    <Folder Include="Core\" />
   </ItemGroup>
 
 </Project>
