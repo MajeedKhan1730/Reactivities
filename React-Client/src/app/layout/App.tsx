@@ -3,8 +3,9 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import {ListItemText, List, ListItem, Typography } from "@mui/material";
+import {ListItemText, List, ListItem, Typography, CssBaseline, Container } from "@mui/material";
 import axios from "axios";
+import NavBar from "./NavBar";
 
 function App() {
   const title = "Wolcome to Reactivities";
@@ -15,13 +16,18 @@ function App() {
   }, [])
   return (
     <>
+    <CssBaseline/>
+    <NavBar/>
    <Typography variant='h1'>{title}</Typography>
+    <Container maxWidth="xl" sx={{mt:3}}>
     <List>
       {dataactivities.map((activity)=>(
         <ListItem key={activity.id}>
           <ListItemText>{activity.title}</ListItemText></ListItem>
       ))}
     </List>
+    </Container>
+
     </>
   )
 }
