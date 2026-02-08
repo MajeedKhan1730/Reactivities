@@ -3,8 +3,9 @@ import { Activity } from "react"
 
 type Props={
   dataactivity: Activity
+  selectActivity: (id: string) => void;
 }
-export default function ActivityCard({dataactivity}:Props) {
+export default function ActivityCard({dataactivity,selectActivity}:Props) {
   return (
     <Card sx={{borderRadius:3}}>
       <CardContent>
@@ -15,7 +16,7 @@ export default function ActivityCard({dataactivity}:Props) {
       </CardContent>
       <CardActions sx={{display:'flex', justifyContent:'space-between', pb:2}}>
         <Chip label={dataactivity.category} variant="outlined"/>
-        <Button size ="medium" variant="contained" >View</Button>
+        <Button onClick={() => selectActivity(dataactivity.id)} size ="medium" variant="contained" >View</Button>
       </CardActions>
     </Card>
   )

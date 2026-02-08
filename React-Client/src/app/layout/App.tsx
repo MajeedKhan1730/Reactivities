@@ -11,17 +11,30 @@ import ActivityDashboard from "../../features/Activities/Dashboard/ActivityDashb
 function App() {
   const title = "Wolcome to Reactivities";
   const [dataactivities, setdataActivities] = useState<Activity[]>([]);
+  const [selectedActivity, setSelectedActivity] = useState<Activity | undefined>(undefined);
   useEffect(() => {
     axios.get<Activity[]>('https://localhost:7028/api/activities')
       .then(response => setdataActivities(response.data))
+      return () => { }
   }, [])
+const handleSelectActivity = (id:string)=>{
+  setSelectedActivity(dataactivities.find(x=>x.id===id));
+}
+const handleCancelSelectActivity = ()=>{
+  setSelectedActivity(undefined);
+}
   return (
     <Box sx={{bgcolor:'#eeeeee'}}>
     <CssBaseline/>
     <NavBar/>
    <Typography variant='h1'>{title}</Typography>
     <Container maxWidth="xl" sx={{mt:3}}>
-    <ActivityDashboard dataactivities={dataactivities}/>
+    <ActivityDashboard 
+      dataactivities={dataactivities}
+      selectActivity = {handleSelectActivity}
+      cancelSelectActivity = {handleCancelSelectActivity}
+      selectedActivity = {selectedActivity}
+    />
     </Container>
 
     </Box>
