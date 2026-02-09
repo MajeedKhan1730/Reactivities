@@ -12,6 +12,7 @@ function App() {
   const title = "Wolcome to Reactivities";
   const [dataactivities, setdataActivities] = useState<Activity[]>([]);
   const [selectedActivity, setSelectedActivity] = useState<Activity | undefined>(undefined);
+  const [editActivity, setEditActivity] = useState(false);
   useEffect(() => {
     axios.get<Activity[]>('https://localhost:7028/api/activities')
       .then(response => setdataActivities(response.data))
@@ -23,10 +24,20 @@ const handleSelectActivity = (id:string)=>{
 const handleCancelSelectActivity = ()=>{
   setSelectedActivity(undefined);
 }
+const handleOpenForm = (id?: string)=>{
+  if(id) handleSelectActivity(id);
+    else handleCancelSelectActivity();
+    setEditActivity(true);
+
+}
+const handleFormClose = () => {
+  setEditActivity(false);
+}
+
   return (
     <Box sx={{bgcolor:'#eeeeee'}}>
     <CssBaseline/>
-    <NavBar/>
+    <NavBar openForm={handleOpenForm} /> 
    <Typography variant='h1'>{title}</Typography>
     <Container maxWidth="xl" sx={{mt:3}}>
     <ActivityDashboard 
@@ -34,6 +45,9 @@ const handleCancelSelectActivity = ()=>{
       selectActivity = {handleSelectActivity}
       cancelSelectActivity = {handleCancelSelectActivity}
       selectedActivity = {selectedActivity}
+      editMode={editActivity}
+      openForm={handleOpenForm}
+      closeForm={handleFormClose}
     />
     </Container>
 
