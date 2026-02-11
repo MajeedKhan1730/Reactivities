@@ -34,6 +34,17 @@ const handleFormClose = () => {
   setEditActivity(false);
 }
 
+const handleSubmitForm = (dataActivity: Activity) => {
+  if(dataActivity.id){
+    setdataActivities(dataactivities.map(x => x.id === dataActivity.id ? dataActivity : x))
+  }
+  else{
+    const newActivity = {...dataActivity,id: dataactivities.length.toString()}
+    setSelectedActivity(newActivity)
+    setdataActivities([...dataactivities, newActivity])
+  }
+  setEditActivity(false);
+}
   return (
     <Box sx={{bgcolor:'#eeeeee'}}>
     <CssBaseline/>
@@ -48,6 +59,7 @@ const handleFormClose = () => {
       editMode={editActivity}
       openForm={handleOpenForm}
       closeForm={handleFormClose}
+      submitForm = {handleSubmitForm}
     />
     </Container>
 
