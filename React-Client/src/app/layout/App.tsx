@@ -45,6 +45,9 @@ const handleSubmitForm = (dataActivity: Activity) => {
   }
   setEditActivity(false);
 }
+const handleDelete = (id?:string) => {
+  setdataActivities(dataactivities.filter(x => x.id !==id))
+}
   return (
     <Box sx={{bgcolor:'#eeeeee'}}>
     <CssBaseline/>
@@ -60,6 +63,7 @@ const handleSubmitForm = (dataActivity: Activity) => {
       openForm={handleOpenForm}
       closeForm={handleFormClose}
       submitForm = {handleSubmitForm}
+      deleteActivity = {handleDelete}
     />
     </Container>
 
